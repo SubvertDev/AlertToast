@@ -196,6 +196,9 @@ public struct AlertToast: View{
     ///The subtitle of the alert (`Optional(String)`)
     public var subTitle: String? = nil
     
+    ///Bundle for localization purposes
+    public var bundle: Bundle? = nil
+    
     ///Customize your alert appearance
     public var style: AlertStyle? = nil
     
@@ -204,12 +207,14 @@ public struct AlertToast: View{
                 type: AlertType,
                 title: String? = nil,
                 subTitle: String? = nil,
+                bundle: Bundle? = nil,
                 style: AlertStyle? = nil){
         
         self.displayMode = displayMode
         self.type = type
         self.title = title
         self.subTitle = subTitle
+        self.bundle = bundle
         self.style = style
     }
     
@@ -251,12 +256,12 @@ public struct AlertToast: View{
                         EmptyView()
                     }
                     
-                    Text(LocalizedStringKey(title ?? ""))
+                    Text(LocalizedStringKey(title ?? ""), bundle: bundle)
                         .font(style?.titleFont ?? Font.headline.bold())
                 }
                 
                 if subTitle != nil{
-                    Text(LocalizedStringKey(subTitle!))
+                    Text(LocalizedStringKey(subTitle!), bundle: bundle)
                         .font(style?.subTitleFont ?? Font.subheadline)
                 }
             }
@@ -300,13 +305,13 @@ public struct AlertToast: View{
                 if title != nil || subTitle != nil{
                     VStack(alignment: type == .regular ? .center : .leading, spacing: 2){
                         if title != nil{
-                            Text(LocalizedStringKey(title ?? ""))
+                            Text(LocalizedStringKey(title ?? ""), bundle: bundle)
                                 .font(style?.titleFont ?? Font.body.bold())
                                 .multilineTextAlignment(.center)
                                 .textColor(style?.titleColor ?? nil)
                         }
                         if subTitle != nil{
-                            Text(LocalizedStringKey(subTitle ?? ""))
+                            Text(LocalizedStringKey(subTitle ?? ""), bundle: bundle)
                                 .font(style?.subTitleFont ?? Font.footnote)
                                 .opacity(0.7)
                                 .multilineTextAlignment(.center)
@@ -366,13 +371,13 @@ public struct AlertToast: View{
             
             VStack(spacing: type == .regular ? 8 : 2){
                 if title != nil{
-                    Text(LocalizedStringKey(title ?? ""))
+                    Text(LocalizedStringKey(title ?? ""), bundle: bundle)
                         .font(style?.titleFont ?? Font.body.bold())
                         .multilineTextAlignment(.center)
                         .textColor(style?.titleColor ?? nil)
                 }
                 if subTitle != nil{
-                    Text(LocalizedStringKey(subTitle ?? ""))
+                    Text(LocalizedStringKey(subTitle ?? ""), bundle: bundle)
                         .font(style?.subTitleFont ?? Font.footnote)
                         .opacity(0.7)
                         .multilineTextAlignment(.center)
